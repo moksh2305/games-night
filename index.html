@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games Night - Premium Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <nav class="sidebar">
+        <div class="logo">
+            <i class='bx bx-dice-5 glow-icon'></i>
+            <span>GAMES NIGHT</span>
+        </div>
+
+        <ul class="nav-links">
+            <li class="active" data-target="dashboard">
+                <i class='bx bx-grid-alt'></i>
+                <span>Dashboard</span>
+            </li>
+            <li data-target="events">
+                <i class='bx bx-calendar-event'></i>
+                <span>Events</span>
+            </li>
+            <li data-target="mytickets">
+                <i class='bx bx-receipt'></i>
+                <span>My Tickets</span>
+            </li>
+            <li data-target="bookings">
+                <i class='bx bx-list-ul'></i>
+                <span>Bookings</span>
+            </li>
+            <li data-target="rewards">
+                <i class='bx bx-gift'></i>
+                <span>Rewards</span>
+            </li>
+            <li data-target="profile">
+                <i class='bx bx-user'></i>
+                <span>Profile</span>
+            </li>
+        </ul>
+
+        <div class="sidebar-bottom">
+            <div class="membership-card">
+                <i class='bx bxs-crown'></i>
+                <div class="info">
+                    <h4>Neon Member</h4>
+                    <p>1,890 Points</p>
+                </div>
+            </div>
+            <a href="#" class="logout">
+                <i class='bx bx-log-out'></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        
+        <!-- DASHBOARD PAGE -->
+        <section id="dashboard" class="page active">
+            <header>
+                <div>
+                    <h1>Hey Alex! Ready to play?</h1>
+                    <p class="subtitle">Epic games. Great people. Unforgettable memories.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary glow">Book Tickets</button>
+                    <button class="btn btn-secondary">Explore Events</button>
+                </div>
+            </header>
+
+            <div class="hero-banner">
+                <img src="assets/hero_banner.png" alt="Game On Neon Sign">
+                <div class="hero-overlay"></div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class='bx bx-calendar-star'></i>
+                    <div class="stat-info">
+                        <p>Upcoming Events</p>
+                        <h3>5</h3>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class='bx bx-party'></i>
+                    <div class="stat-info">
+                        <p>Tickets Booked</p>
+                        <h3>2</h3>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class='bx bx-wallet'></i>
+                    <div class="stat-info">
+                        <p>Total Spent</p>
+                        <h3>$210</h3>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class='bx bx-diamond'></i>
+                    <div class="stat-info">
+                        <p>Reward Points</p>
+                        <h3>1,890</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-bottom">
+                <div class="upcoming-events-widget">
+                    <div class="widget-header">
+                        <h2>Upcoming Events</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    
+                    <div class="event-mini-card">
+                        <img src="assets/poker_event.png" alt="Poker Night">
+                        <div class="event-details">
+                            <h4>Poker & Poker Night</h4>
+                            <p><i class='bx bx-calendar'></i> 07 Jun 2025 • 8:00 PM</p>
+                            <p><i class='bx bx-map'></i> Ace Club, Birmingham</p>
+                        </div>
+                        <div class="event-price">$75</div>
+                        <button class="btn btn-outline">Book Now</button>
+                    </div>
+
+                    <div class="event-mini-card">
+                        <img src="assets/retro_game_event.png" alt="Retro Games">
+                        <div class="event-details">
+                            <h4>Retro Games Night</h4>
+                            <p><i class='bx bx-calendar'></i> 21 Jun 2025 • 6:30 PM</p>
+                            <p><i class='bx bx-map'></i> Pixel Den, Manchester</p>
+                        </div>
+                        <div class="event-price">$50</div>
+                        <button class="btn btn-outline">Book Now</button>
+                    </div>
+
+                    <div class="event-mini-card">
+                        <img src="assets/trivia_event.png" alt="Trivia Night">
+                        <div class="event-details">
+                            <h4>Trivia Night Showdown</h4>
+                            <p><i class='bx bx-calendar'></i> 05 Jul 2025 • 7:30 PM</p>
+                            <p><i class='bx bx-map'></i> Brainy Bar, Leeds</p>
+                        </div>
+                        <div class="event-price">$40</div>
+                        <button class="btn btn-outline">Book Now</button>
+                    </div>
+                </div>
+
+                <div class="side-widgets">
+                    <div class="next-ticket-card">
+                        <h3>My Next Ticket</h3>
+                        <img src="assets/board_game_event.png" alt="Board Games">
+                        <h4>Board Games Championship</h4>
+                        <p>24 May 2025 • 7:00 PM</p>
+                        <div class="ticket-status">
+                            <span>VIP Access</span>
+                            <span class="badge success">Confirmed</span>
+                        </div>
+                    </div>
+
+                    <div class="referral-card">
+                        <i class='bx bx-group'></i>
+                        <h3>Bring the squad, double the fun!</h3>
+                        <p>Invite friends and unlock exclusive rewards.</p>
+                        <button class="btn btn-primary">Invite Friends</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVENTS PAGE -->
+        <section id="events" class="page">
+            <header>
+                <div>
+                    <h1>Events</h1>
+                    <p class="subtitle">Explore our curated games nights and book your experience.</p>
+                </div>
+            </header>
+
+            <div class="events-controls">
+                <div class="search-bar">
+                    <i class='bx bx-search'></i>
+                    <input type="text" placeholder="Search events...">
+                </div>
+                <button class="btn btn-icon"><i class='bx bx-filter-alt'></i> Filter</button>
+            </div>
+
+            <div class="category-chips">
+                <button class="chip active">All Events</button>
+                <button class="chip">Board Games</button>
+                <button class="chip">Poker</button>
+                <button class="chip">Retro Games</button>
+                <button class="chip">Trivia</button>
+            </div>
+
+            <div class="events-grid">
+                <!-- Board Games Event -->
+                <div class="event-card featured">
+                    <div class="card-img">
+                        <img src="assets/board_game_event.png" alt="Board Games Championship">
+                        <span class="badge featured-badge">Featured</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>Board Games Championship</h3>
+                        <p class="date"><i class='bx bx-calendar'></i> 24 May 2025 • 7:00 PM</p>
+                        <p class="venue"><i class='bx bx-map'></i> The Royal Lounge, London</p>
+                        <p class="desc">An exclusive evening of strategy, fun and friendly competition.</p>
+                        <div class="card-footer">
+                            <div class="price">From <span>$60</span></div>
+                            <button class="btn btn-primary">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poker Event -->
+                <div class="event-card">
+                    <div class="card-img">
+                        <img src="assets/poker_event.png" alt="Poker Night">
+                    </div>
+                    <div class="card-content">
+                        <h3>Poker & Poker Night</h3>
+                        <p class="date"><i class='bx bx-calendar'></i> 07 Jun 2025 • 8:00 PM</p>
+                        <p class="venue"><i class='bx bx-map'></i> Ace Club, Birmingham</p>
+                        <p class="desc">Texas Hold'em, great vibes and big prizes.</p>
+                        <div class="card-footer">
+                            <div class="price">From <span>$75</span></div>
+                            <button class="btn btn-primary">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Retro Games Event -->
+                <div class="event-card">
+                    <div class="card-img">
+                        <img src="assets/retro_game_event.png" alt="Retro Games Night">
+                    </div>
+                    <div class="card-content">
+                        <h3>Retro Games Night</h3>
+                        <p class="date"><i class='bx bx-calendar'></i> 21 Jun 2025 • 6:30 PM</p>
+                        <p class="venue"><i class='bx bx-map'></i> Pixel Den, Manchester</p>
+                        <p class="desc">Classic games, old school feels and endless fun.</p>
+                        <div class="card-footer">
+                            <div class="price">From <span>$50</span></div>
+                            <button class="btn btn-primary">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trivia Event -->
+                <div class="event-card">
+                    <div class="card-img">
+                        <img src="assets/trivia_event.png" alt="Trivia Night Showdown">
+                    </div>
+                    <div class="card-content">
+                        <h3>Trivia Night Showdown</h3>
+                        <p class="date"><i class='bx bx-calendar'></i> 05 Jul 2025 • 7:30 PM</p>
+                        <p class="venue"><i class='bx bx-map'></i> Brainy Bar, Leeds</p>
+                        <p class="desc">Test your knowledge and win exciting rewards.</p>
+                        <div class="card-footer">
+                            <div class="price">From <span>$40</span></div>
+                            <button class="btn btn-primary">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MY TICKETS PAGE -->
+        <section id="mytickets" class="page">
+            <header>
+                <div>
+                    <h1>My Tickets</h1>
+                    <p class="subtitle">View and manage your booked tickets.</p>
+                </div>
+            </header>
+
+            <div class="tabs">
+                <button class="tab active">Upcoming</button>
+                <button class="tab">Past</button>
+                <button class="tab">Cancelled</button>
+            </div>
+
+            <div class="tickets-list">
+                <div class="ticket-card">
+                    <img src="assets/board_game_event.png" alt="Event">
+                    <div class="ticket-info">
+                        <h3>Board Games Championship</h3>
+                        <p><i class='bx bx-calendar'></i> 24 May 2025 • 7:00 PM</p>
+                        <p><i class='bx bx-map'></i> The Royal Lounge, London</p>
+                        <div class="ticket-meta">
+                            <div class="meta-item">
+                                <span>Ticket Type</span>
+                                <strong>VIP Access</strong>
+                            </div>
+                            <span class="badge success">Confirmed</span>
+                        </div>
+                    </div>
+                    <div class="ticket-qr">
+                        <div class="qr-code">
+                            <i class='bx bx-qr'></i>
+                        </div>
+                        <span>Order ID: #GNT8456</span>
+                    </div>
+                </div>
+
+                <div class="ticket-card">
+                    <img src="assets/poker_event.png" alt="Event">
+                    <div class="ticket-info">
+                        <h3>Poker & Poker Night</h3>
+                        <p><i class='bx bx-calendar'></i> 07 Jun 2025 • 8:00 PM</p>
+                        <p><i class='bx bx-map'></i> Ace Club, Birmingham</p>
+                        <div class="ticket-meta">
+                            <div class="meta-item">
+                                <span>Ticket Type</span>
+                                <strong>Standard</strong>
+                            </div>
+                            <span class="badge success">Confirmed</span>
+                        </div>
+                    </div>
+                    <div class="ticket-qr">
+                        <div class="qr-code">
+                            <i class='bx bx-qr'></i>
+                        </div>
+                        <span>Order ID: #GNT2578</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOOKINGS PAGE -->
+        <section id="bookings" class="page">
+            <header>
+                <div>
+                    <h1>Bookings</h1>
+                    <p class="subtitle">Track your bookings and their status.</p>
+                </div>
+            </header>
+
+            <div class="tabs">
+                <button class="tab active">All</button>
+                <button class="tab">Confirmed</button>
+                <button class="tab">Pending</button>
+                <button class="tab">Cancelled</button>
+            </div>
+
+            <div class="table-container glass-panel">
+                <table class="luxury-table">
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Date</th>
+                            <th>Ticket Type</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Order ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="table-event">
+                                    <img src="assets/board_game_event.png" alt="Event">
+                                    <span>Board Games Championship</span>
+                                </div>
+                            </td>
+                            <td>24 May 2025<br><small>7:00 PM</small></td>
+                            <td>VIP Access</td>
+                            <td>$60</td>
+                            <td><span class="badge success">Confirmed</span></td>
+                            <td>#GNT8456</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-event">
+                                    <img src="assets/poker_event.png" alt="Event">
+                                    <span>Poker & Poker Night</span>
+                                </div>
+                            </td>
+                            <td>07 Jun 2025<br><small>8:00 PM</small></td>
+                            <td>Standard</td>
+                            <td>$75</td>
+                            <td><span class="badge success">Confirmed</span></td>
+                            <td>#GNT2578</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-event">
+                                    <img src="assets/retro_game_event.png" alt="Event">
+                                    <span>Retro Games Night</span>
+                                </div>
+                            </td>
+                            <td>21 Jun 2025<br><small>6:30 PM</small></td>
+                            <td>Standard</td>
+                            <td>$50</td>
+                            <td><span class="badge pending">Pending</span></td>
+                            <td>#GNT3691</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="table-event">
+                                    <img src="assets/trivia_event.png" alt="Event">
+                                    <span>Trivia Night Showdown</span>
+                                </div>
+                            </td>
+                            <td>05 Jul 2025<br><small>7:30 PM</small></td>
+                            <td>Standard</td>
+                            <td>$40</td>
+                            <td><span class="badge cancelled">Cancelled</span></td>
+                            <td>#GNT4780</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PROFILE PAGE -->
+        <section id="profile" class="page">
+            <header>
+                <div>
+                    <h1>Profile</h1>
+                    <p class="subtitle">Manage your account and preferences.</p>
+                </div>
+            </header>
+
+            <div class="profile-layout">
+                <div class="profile-sidebar glass-panel">
+                    <div class="avatar-container">
+                        <img src="assets/user_avatar.png" alt="Alex Johnson" class="avatar-img">
+                        <div class="avatar-ring"></div>
+                    </div>
+                    <h2>Alex Johnson</h2>
+                    <span class="badge member-badge">Neon Member</span>
+                    
+                    <div class="contact-info">
+                        <p><i class='bx bx-envelope'></i> alex.johnson@email.com</p>
+                        <p><i class='bx bx-phone'></i> +44 7700 900123</p>
+                    </div>
+
+                    <div class="points-display">
+                        <h3>1,890</h3>
+                        <p>Points Earned</p>
+                    </div>
+                </div>
+
+                <div class="profile-content glass-panel">
+                    <div class="profile-tabs">
+                        <button class="ptab active">Account Info</button>
+                        <button class="ptab">Preferences</button>
+                        <button class="ptab">Payment Methods</button>
+                        <button class="ptab">Security</button>
+                    </div>
+
+                    <form class="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" value="Alex Johnson">
+                            </div>
+                            <div class="form-group">
+                                <label>Date of Birth</label>
+                                <input type="text" value="15 March 1995">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" value="alex.johnson@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" value="London, United Kingdom">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" value="+44 7700 900123">
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary glow">Save Changes</button>
+                            <button type="button" class="btn btn-outline">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        
+        <!-- REWARDS PAGE PLACEHOLDER -->
+        <section id="rewards" class="page">
+            <header>
+                <div>
+                    <h1>Rewards</h1>
+                    <p class="subtitle">Claim your points and unlock exclusive perks.</p>
+                </div>
+            </header>
+            <div class="glass-panel" style="padding: 3rem; text-align: center;">
+                <i class='bx bx-gift' style="font-size: 4rem; color: var(--neon-purple); margin-bottom: 1rem; text-shadow: 0 0 20px var(--neon-purple);"></i>
+                <h2>Rewards Center Coming Soon</h2>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
