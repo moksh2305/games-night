@@ -1,4 +1,11 @@
-export default function DashboardPage() {
+import { prisma } from '@/lib/prisma';
+import Link from 'next/link';
+
+export const dynamic = 'force-dynamic';
+
+export default async function DashboardPage() {
+  const events = await prisma.event.findMany({ take: 3 });
+
   return (
     <section id="dashboard" className="page active">
       <header>
@@ -7,8 +14,8 @@ export default function DashboardPage() {
           <p className="subtitle">Epic games. Great people. Unforgettable memories.</p>
         </div>
         <div className="header-actions">
-          <button className="btn btn-primary glow">Book Tickets</button>
-          <button className="btn btn-secondary">Explore Events</button>
+          <Link href="/events"><button className="btn btn-primary glow">Book Tickets</button></Link>
+          <Link href="/events"><button className="btn btn-secondary">Explore Events</button></Link>
         </div>
       </header>
 
@@ -22,21 +29,21 @@ export default function DashboardPage() {
           <i className="bx bx-calendar-star"></i>
           <div className="stat-info">
             <p>Upcoming Events</p>
-            <h3>5</h3>
+            <h3>{events.length}</h3>
           </div>
         </div>
         <div className="stat-card">
           <i className="bx bx-party"></i>
           <div className="stat-info">
             <p>Tickets Booked</p>
-            <h3>2</h3>
+            <h3>0</h3>
           </div>
         </div>
         <div className="stat-card">
           <i className="bx bx-wallet"></i>
           <div className="stat-info">
             <p>Total Spent</p>
-            <h3>$210</h3>
+            <h3>$0</h3>
           </div>
         </div>
         <div className="stat-card">
@@ -52,54 +59,38 @@ export default function DashboardPage() {
         <div className="upcoming-events-widget">
           <div className="widget-header">
             <h2>Upcoming Events</h2>
-            <a href="/events" className="view-all">View All</a>
+            <Link href="/events" className="view-all">View All</Link>
           </div>
 
-          <div className="event-mini-card">
-            <img src="/assets/poker_event.png" alt="Poker Night" />
-            <div className="event-details">
-              <h4>Poker & Poker Night</h4>
-              <p><i className="bx bx-calendar"></i> 07 Jun 2025 • 8:00 PM</p>
-              <p><i className="bx bx-map"></i> Ace Club, Birmingham</p>
+          {events.map((event) => (
+            <div key={event.id} className="event-mini-card">
+              <img src={event.image} alt={event.title} />
+              <div className="event-details">
+                <h4>{event.title}</h4>
+                <p><i className="bx bx-calendar"></i> {event.date}</p>
+                <p><i className="bx bx-map"></i> {event.venue}</p>
+              </div>
+              <div className="event-price">${event.price}</div>
+              <Link href={`/events/${event.id}/book`}>
+                <button className="btn btn-outline">Book Now</button>
+              </Link>
             </div>
-            <div className="event-price">$75</div>
-            <button className="btn btn-outline">Book Now</button>
-          </div>
-
-          <div className="event-mini-card">
-            <img src="/assets/retro_game_event.png" alt="Retro Games" />
-            <div className="event-details">
-              <h4>Retro Games Night</h4>
-              <p><i className="bx bx-calendar"></i> 21 Jun 2025 • 6:30 PM</p>
-              <p><i className="bx bx-map"></i> Pixel Den, Manchester</p>
-            </div>
-            <div className="event-price">$50</div>
-            <button className="btn btn-outline">Book Now</button>
-          </div>
-
-          <div className="event-mini-card">
-            <img src="/assets/trivia_event.png" alt="Trivia Night" />
-            <div className="event-details">
-              <h4>Trivia Night Showdown</h4>
-              <p><i className="bx bx-calendar"></i> 05 Jul 2025 • 7:30 PM</p>
-              <p><i className="bx bx-map"></i> Brainy Bar, Leeds</p>
-            </div>
-            <div className="event-price">$40</div>
-            <button className="btn btn-outline">Book Now</button>
-          </div>
+          ))}
         </div>
 
         <div className="side-widgets">
-          <div className="next-ticket-card">
-            <h3>My Next Ticket</h3>
-            <img src="/assets/board_game_event.png" alt="Board Games" />
-            <h4>Board Games Championship</h4>
-            <p>24 May 2025 • 7:00 PM</p>
-            <div className="ticket-status">
-              <span>VIP Access</span>
-              <span className="badge success">Confirmed</span>
+          {events.length > 0 && (
+            <div className="next-ticket-card">
+              <h3>My Next Ticket</h3>
+              <img src={events[0].image} alt={events[0].title} />
+              <h4>{events[0].title}</h4>
+              <p>{events[0].date}</p>
+              <div className="ticket-status">
+                <span>{events[0].type}</span>
+                <span className="badge success">Confirmed</span>
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="referral-card">
             <i className="bx bx-group"></i>
