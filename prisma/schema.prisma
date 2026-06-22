@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  date        String
+  venue       String
+  description String
+  price       Float
+  image       String
+  type        String    @default("Standard")
+  bookings    Booking[]
+}
+
+model Booking {
+  id            String   @id @default(cuid())
+  eventId       String
+  email         String
+  name          String
+  age           Int
+  address       String
+  paymentMethod String
+  status        String   @default("Confirmed")
+  createdAt     DateTime @default(now())
+
+  event         Event    @relation(fields: [eventId], references: [id])
+
+  @@unique([eventId, email]) // 1 ticket per user (email) per event
+}
