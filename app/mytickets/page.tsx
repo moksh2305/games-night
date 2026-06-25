@@ -2,18 +2,25 @@ import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import InviteFriendsCard from '@/components/InviteFriendsCard';
 import ShareableTicket from '@/components/ShareableTicket';
+import { cookies } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
 export default async function MyTicketsPage() {
-  const bookings = await prisma.booking.findMany({
+  const cookieStore = await cookies();
+  const userEmail = cookieStore.get('userEmail')?.value;
+
+  const bookings = userEmail ? await prisma.booking.findMany({
+    where: {
+      email: userEmail
+    },
     include: {
       event: true
     },
     orderBy: {
       createdAt: 'desc'
     }
-  });
+  }) : [];
 
   return (
     <section id="mytickets" className="page active">

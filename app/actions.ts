@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { cookies } from 'next/headers';
 
 export async function bookTicket(prevState: any, formData: FormData) {
   const eventId = formData.get('eventId') as string;
@@ -41,6 +42,8 @@ export async function bookTicket(prevState: any, formData: FormData) {
     return { error: 'An unexpected error occurred.' };
   }
 
+  const cookieStore = await cookies();
+  cookieStore.set('userEmail', email, { path: '/' });
   revalidatePath('/mytickets');
   revalidatePath(`/events/${eventId}/book`);
   redirect('/mytickets');
