@@ -36,3 +36,11 @@ model Booking {
 
   @@unique([eventId, email]) // 1 ticket per user (email) per event
 }
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String   @default("Participant")
+  content   String
+  createdAt DateTime @default(now())
+}

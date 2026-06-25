@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import AnimatedPillars from '@/components/AnimatedPillars';
+import TestimonialBoard from '@/components/TestimonialBoard';
 
 export const revalidate = 5;
 
@@ -7,6 +9,11 @@ export default async function DashboardPage() {
   const events = await prisma.event.findMany({
     take: 3,
     include: { _count: { select: { bookings: true } } }
+  });
+
+  const testimonials = await prisma.testimonial.findMany({
+    orderBy: { createdAt: 'desc' },
+    take: 10
   });
 
   return (
@@ -73,6 +80,8 @@ export default async function DashboardPage() {
         </div>
       </div>
 
+      <AnimatedPillars />
+
       <div className="dashboard-bottom">
         <div className="upcoming-events-widget">
           <div className="widget-header">
@@ -92,7 +101,7 @@ export default async function DashboardPage() {
               </div>
               <div className="event-price">{event.price === 0 ? 'FREE' : '$' + event.price}</div>
               <Link href={`/events/${event.id}/book`}>
-                <button className={`btn ${isSoldOut ? 'btn-secondary' : 'btn-outline'}`}>
+                <button className={`btn ${isSoldOut ? 'btn-secondary' : 'btn-outline glow'}`}>
                   {isSoldOut ? 'Sold Out' : 'Book Now'}
                 </button>
               </Link>
@@ -119,10 +128,12 @@ export default async function DashboardPage() {
             <i className="bx bx-group"></i>
             <h3>Bring the squad, double the fun!</h3>
             <p>Invite friends and unlock exclusive rewards.</p>
-            <button className="btn btn-primary">Invite Friends</button>
+            <button className="btn btn-primary glow">Invite Friends</button>
           </div>
         </div>
       </div>
+
+      <TestimonialBoard initialTestimonials={testimonials} />
     </section>
   );
 }

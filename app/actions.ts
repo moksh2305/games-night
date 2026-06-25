@@ -45,3 +45,23 @@ export async function bookTicket(prevState: any, formData: FormData) {
   revalidatePath(`/events/${eventId}/book`);
   redirect('/mytickets');
 }
+
+export async function addTestimonial(formData: FormData) {
+  const content = formData.get('content') as string;
+  if (!content || content.trim().length === 0) return { error: 'Testimonial cannot be empty' };
+
+  try {
+    await prisma.testimonial.create({
+      data: {
+        name: 'Alex Johnson', // Placeholder for logged-in user
+        role: 'Participant',
+        content,
+      }
+    });
+  } catch (error) {
+    return { error: 'Failed to post testimonial' };
+  }
+
+  revalidatePath('/');
+  return { success: true };
+}

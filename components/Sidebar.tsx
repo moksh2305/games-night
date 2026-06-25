@@ -10,7 +10,7 @@ export default function Sidebar() {
     { name: 'Events', path: '/events', icon: 'bx-calendar-event' },
     { name: 'My Tickets', path: '/mytickets', icon: 'bx-receipt' },
     { name: 'Bookings', path: '/bookings', icon: 'bx-check-square' },
-    { name: 'Rewards', path: '/rewards', icon: 'bx-gift' },
+    { name: 'Community Perks', path: '/rewards', icon: 'bx-medal' },
     { name: 'Profile', path: '/profile', icon: 'bx-user' },
   ];
 
