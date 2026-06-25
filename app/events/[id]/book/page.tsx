@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma';
 import { bookTicket } from '@/app/actions';
 import { redirect } from 'next/navigation';
 
+export const dynamic = 'force-dynamic';
+
 export default async function BookEventPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const event = await prisma.event.findUnique({
