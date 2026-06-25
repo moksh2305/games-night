@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import InviteFriendsCard from '@/components/InviteFriendsCard';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,7 +23,9 @@ export default async function MyTicketsPage() {
         </div>
       </header>
 
-      <div className="tabs">
+      <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+        <div style={{ flex: 1 }}>
+          <div className="tabs">
         <button className="tab active">Upcoming</button>
         <button className="tab">Past</button>
         <button className="tab">Cancelled</button>
@@ -80,6 +83,12 @@ export default async function MyTicketsPage() {
             </div>
           ))
         )}
+      </div>
+        </div>
+        
+        <div style={{ width: '300px' }}>
+          <InviteFriendsCard />
+        </div>
       </div>
     </section>
   );

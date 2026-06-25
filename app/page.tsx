@@ -110,27 +110,7 @@ export default async function DashboardPage() {
           })}
         </div>
 
-        <div className="side-widgets">
-          {events.length > 0 && (
-            <div className="next-ticket-card">
-              <h3>My Next Ticket</h3>
-              <img src={events[0].image} alt={events[0].title} />
-              <h4>{events[0].title}</h4>
-              <p>{events[0].date}</p>
-              <div className="ticket-status">
-                <span>{events[0].type}</span>
-                <span className="badge success">Confirmed</span>
-              </div>
-            </div>
-          )}
 
-          <div className="referral-card">
-            <i className="bx bx-group"></i>
-            <h3>Bring the squad, double the fun!</h3>
-            <p>Invite friends and unlock exclusive rewards.</p>
-            <button className="btn btn-primary glow">Invite Friends</button>
-          </div>
-        </div>
       </div>
 
       <TestimonialBoard initialTestimonials={testimonials} />
