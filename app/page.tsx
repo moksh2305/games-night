@@ -11,6 +11,11 @@ export default async function DashboardPage() {
 
   return (
     <section id="dashboard" className="page active">
+      <div style={{ background: 'linear-gradient(90deg, rgba(167,139,250,0.1), rgba(244,114,182,0.05))', padding: '12px 24px', borderRadius: '16px', border: '1px solid rgba(167,139,250,0.2)', marginBottom: '2.5rem', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <i className='bx bxs-check-shield' style={{ color: 'var(--neon-purple)', fontSize: '1.4rem' }}></i>
+        <span style={{ fontSize: '0.95rem', letterSpacing: '0.5px', color: 'var(--text-muted)' }}>Hosted & Moderated by <strong style={{ color: 'white', fontWeight: 600 }}>Arham Yuva Seva Group (AYSG)</strong></span>
+      </div>
+
       <header>
         <div>
           <h1>Hey Alex! Ready to play?</h1>
@@ -22,38 +27,48 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <div className="hero-banner">
+      <div className="hero-banner" style={{ marginBottom: '1.5rem' }}>
         <img src="/assets/hero_banner.png" alt="Game On Neon Sign" />
         <div className="hero-overlay"></div>
       </div>
 
+      <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', zIndex: 10, marginBottom: '3rem', marginTop: '-3rem' }}>
+        <div className="glass-panel" style={{ padding: '1rem 2.5rem', display: 'flex', gap: '2rem', borderRadius: '100px', background: 'rgba(5,5,8,0.85)', border: '1px solid rgba(255,255,255,0.08)' }}>
+          <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}><strong style={{ color: 'white' }}>150+</strong> Youth Joined</span>
+          <span style={{ color: 'var(--neon-purple)' }}>•</span>
+          <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}><strong style={{ color: 'white' }}>12+</strong> Interactive Games</span>
+          <span style={{ color: 'var(--neon-purple)' }}>•</span>
+          <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}><strong style={{ color: 'white' }}>1</strong> Unforgettable Night</span>
+        </div>
+      </div>
+
       <div className="stats-grid">
         <div className="stat-card">
-          <i className="bx bx-calendar-star"></i>
+          <i className="bx bx-group"></i>
           <div className="stat-info">
-            <p>Upcoming Events</p>
-            <h3>{events.length}</h3>
+            <p>Active Members</p>
+            <h3>150+</h3>
           </div>
         </div>
         <div className="stat-card">
-          <i className="bx bx-party"></i>
+          <i className="bx bx-calendar-check"></i>
           <div className="stat-info">
-            <p>Tickets Booked</p>
-            <h3>0</h3>
+            <p>Events Hosted</p>
+            <h3>20+</h3>
           </div>
         </div>
         <div className="stat-card">
-          <i className="bx bx-wallet"></i>
+          <i className="bx bx-star"></i>
           <div className="stat-info">
-            <p>Total Spent</p>
-            <h3>$0</h3>
+            <p>Community Rating</p>
+            <h3>4.9/5</h3>
           </div>
         </div>
         <div className="stat-card">
-          <i className="bx bx-diamond"></i>
+          <i className="bx bx-refresh"></i>
           <div className="stat-info">
-            <p>Reward Points</p>
-            <h3>1,890</h3>
+            <p>Returning Players</p>
+            <h3>95%</h3>
           </div>
         </div>
       </div>

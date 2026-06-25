@@ -22,6 +22,7 @@ export default function RootLayout({
     <html lang="en" className={poppins.variable}>
       <head>
         <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+        <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
       </head>
       <body>
         <Sidebar />
