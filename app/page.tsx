@@ -16,7 +16,7 @@ export default async function DashboardPage() {
           <h1>Hey Alex! Ready to play?</h1>
           <p className="subtitle">Epic games. Great people. Unforgettable memories.</p>
         </div>
-        <div className="header-actions">
+        <div className="header-actions" style={{ display: 'flex', gap: '1rem' }}>
           <Link href="/events"><button className="btn btn-primary glow">Book Tickets</button></Link>
           <Link href="/events"><button className="btn btn-secondary">Explore Events</button></Link>
         </div>
