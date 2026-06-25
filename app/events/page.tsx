@@ -4,7 +4,9 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 export default async function EventsPage() {
-  const events = await prisma.event.findMany();
+  const events = await prisma.event.findMany({
+    include: { _count: { select: { bookings: true } } }
+  });
 
   return (
     <section id="events" className="page active">
@@ -32,7 +34,9 @@ export default async function EventsPage() {
       </div>
 
       <div className="events-grid">
-        {events.map((event) => (
+        {events.map((event) => {
+          const isSoldOut = event._count.bookings >= event.capacity;
+          return (
           <div key={event.id} className={`event-card ${event.title.includes('Board') ? 'featured' : ''}`}>
             <div className="card-img">
               <img src={event.image} alt={event.title} />
@@ -44,14 +48,17 @@ export default async function EventsPage() {
               <p className="venue"><i className="bx bx-map"></i> {event.venue}</p>
               <p className="desc">{event.description}</p>
               <div className="card-footer">
-                <div className="price">From <span>${event.price}</span></div>
+                <div className="price">From <span>{event.price === 0 ? 'FREE' : '$' + event.price}</span></div>
                 <Link href={`/events/${event.id}/book`}>
-                  <button className="btn btn-primary">Book Now</button>
+                  <button className={`btn ${isSoldOut ? 'btn-secondary' : 'btn-primary'}`}>
+                    {isSoldOut ? 'Sold Out' : 'Book Now'}
+                  </button>
                 </Link>
               </div>
             </div>
           </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

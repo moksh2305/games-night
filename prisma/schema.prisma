@@ -17,6 +17,7 @@ model Event {
   price       Float
   image       String
   type        String    @default("Standard")
+  capacity    Int       @default(30)
   bookings    Booking[]
 }
 

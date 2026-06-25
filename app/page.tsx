@@ -4,7 +4,10 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
-  const events = await prisma.event.findMany({ take: 3 });
+  const events = await prisma.event.findMany({
+    take: 3,
+    include: { _count: { select: { bookings: true } } }
+  });
 
   return (
     <section id="dashboard" className="page active">
@@ -62,7 +65,9 @@ export default async function DashboardPage() {
             <Link href="/events" className="view-all">View All</Link>
           </div>
 
-          {events.map((event) => (
+          {events.map((event) => {
+            const isSoldOut = event._count.bookings >= event.capacity;
+            return (
             <div key={event.id} className="event-mini-card">
               <img src={event.image} alt={event.title} />
               <div className="event-details">
@@ -70,12 +75,15 @@ export default async function DashboardPage() {
                 <p><i className="bx bx-calendar"></i> {event.date}</p>
                 <p><i className="bx bx-map"></i> {event.venue}</p>
               </div>
-              <div className="event-price">${event.price}</div>
+              <div className="event-price">{event.price === 0 ? 'FREE' : '$' + event.price}</div>
               <Link href={`/events/${event.id}/book`}>
-                <button className="btn btn-outline">Book Now</button>
+                <button className={`btn ${isSoldOut ? 'btn-secondary' : 'btn-outline'}`}>
+                  {isSoldOut ? 'Sold Out' : 'Book Now'}
+                </button>
               </Link>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="side-widgets">
