@@ -1,6 +1,7 @@
 import { Poppins } from 'next/font/google';
 import './globals.css';
 import Sidebar from '@/components/Sidebar';
+import { auth } from '@/auth';
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700'],
@@ -13,7 +14,7 @@ export const metadata = {
   description: 'Luxury cyber-neon web dashboard UI for Games Night',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -25,7 +26,7 @@ export default function RootLayout({
         <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <Sidebar />
+        <Sidebar session={await auth()} />
         <main className="main-content">
           {children}
         </main>

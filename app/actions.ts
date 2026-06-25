@@ -3,12 +3,20 @@
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
+import { auth } from '@/auth';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function bookTicket(prevState: any, formData: FormData) {
+  const session = await auth();
+  if (!session?.user?.id || !session?.user?.email) {
+    return { error: 'You must be logged in to book a ticket.' };
+  }
+  
   const eventId = formData.get('eventId') as string;
   const name = formData.get('name') as string;
-  const email = formData.get('email') as string;
+  const email = session.user.email;
   const age = parseInt(formData.get('age') as string);
   const address = formData.get('address') as string;
   
@@ -27,6 +35,7 @@ export async function bookTicket(prevState: any, formData: FormData) {
     await prisma.booking.create({
       data: {
         eventId,
+        userId: session.user.id,
         name,
         email,
         age,
@@ -35,6 +44,25 @@ export async function bookTicket(prevState: any, formData: FormData) {
         status: 'Confirmed',
       },
     });
+
+    if (process.env.RESEND_API_KEY) {
+      await resend.emails.send({
+        from: 'AYSG Games Night <onboarding@resend.dev>',
+        to: email,
+        subject: `Your Ticket to ${event.title}`,
+        html: `
+          <div style="font-family: sans-serif; padding: 20px;">
+            <h2>You're going to ${event.title}!</h2>
+            <p>Hi ${name},</p>
+            <p>Your ticket is confirmed. We can't wait to see you.</p>
+            <p><strong>Date:</strong> ${event.date}</p>
+            <p><strong>Venue:</strong> ${event.venue}</p>
+            <br/>
+            <a href="https://aysg-games-night.vercel.app/mytickets" style="background: #a855f7; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">View your Boarding Pass</a>
+          </div>
+        `
+      });
+    }
   } catch (error: any) {
     if (error.code === 'P2002') {
       return { error: 'You have already booked a ticket for this event with this email.' };
@@ -42,8 +70,7 @@ export async function bookTicket(prevState: any, formData: FormData) {
     return { error: 'An unexpected error occurred.' };
   }
 
-  const cookieStore = await cookies();
-  cookieStore.set('userEmail', email, { path: '/' });
+
   revalidatePath('/mytickets');
   revalidatePath(`/events/${eventId}/book`);
   redirect('/mytickets');
@@ -53,10 +80,13 @@ export async function addTestimonial(formData: FormData) {
   const content = formData.get('content') as string;
   if (!content || content.trim().length === 0) return { error: 'Testimonial cannot be empty' };
 
+  const session = await auth();
+  if (!session?.user) return { error: 'Must be logged in' };
+
   try {
     await prisma.testimonial.create({
       data: {
-        name: 'Alex Johnson', // Placeholder for logged-in user
+        name: session.user.name || 'Anonymous',
         role: 'Participant',
         content,
       }

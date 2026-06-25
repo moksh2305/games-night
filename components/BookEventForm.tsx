@@ -30,10 +30,6 @@ export default function BookEventForm({ eventId, price, isSoldOut }: { eventId: 
         <input type="text" name="name" required placeholder="John Doe" disabled={isPending} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', opacity: isPending ? 0.5 : 1 }} />
       </div>
       
-      <div>
-        <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Email (for 1 ticket limit)</label>
-        <input type="email" name="email" required placeholder="john@example.com" disabled={isPending} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', opacity: isPending ? 0.5 : 1 }} />
-      </div>
       
       <div>
         <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Age</label>

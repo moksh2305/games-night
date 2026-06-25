@@ -1,3 +1,4 @@
+import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { bookTicket } from '@/app/actions';
 import { redirect } from 'next/navigation';
@@ -8,6 +9,11 @@ import RealtimeCounter from '@/components/RealtimeCounter';
 export const revalidate = 5;
 
 export default async function BookEventPage(props: { params: Promise<{ id: string }> }) {
+  const session = await auth();
+  if (!session?.user) {
+    redirect('/login');
+  }
+
   const params = await props.params;
   const event = await prisma.event.findUnique({
     where: { id: params.id },

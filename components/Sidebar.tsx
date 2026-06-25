@@ -1,8 +1,9 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 
-export default function Sidebar() {
+export default function Sidebar({ session }: { session: any }) {
   const pathname = usePathname();
 
   const navItems = [
@@ -31,12 +32,25 @@ export default function Sidebar() {
       </ul>
       <div className="bottom-nav">
         <ul>
-          <li>
-            <Link href="/logout">
-              <i className="bx bx-log-out"></i>
-              <span className="links_name">Logout</span>
-            </Link>
-          </li>
+          {session ? (
+            <li>
+              <button 
+                onClick={() => signOut({ callbackUrl: '/' })} 
+                className="bottom-nav-link"
+                style={{ display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--text-muted)', background: 'transparent', border: 'none', padding: '12px 16px', cursor: 'pointer', width: '100%' }}
+              >
+                <img src={session.user.image || ''} alt="User" style={{ width: 24, height: 24, borderRadius: '50%' }} />
+                <span className="links_name">Logout</span>
+              </button>
+            </li>
+          ) : (
+            <li>
+              <Link href="/login" style={{ display: 'flex', alignItems: 'center', gap: '12px', color: 'var(--text-muted)', textDecoration: 'none', padding: '12px 16px' }}>
+                <i className="bx bx-log-in"></i>
+                <span className="links_name">Login</span>
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
