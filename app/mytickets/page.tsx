@@ -24,7 +24,7 @@ export default async function MyTicketsPage() {
         </div>
       </header>
 
-      <div style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
+      <div className="mytickets-layout" style={{ display: 'flex', gap: '2rem', alignItems: 'flex-start' }}>
         <div style={{ flex: 1 }}>
           <div className="tabs">
         <button className="tab active">Upcoming</button>
