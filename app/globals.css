@@ -1,17 +1,17 @@
 @import "tailwindcss";
 :root {
-    --bg-dark: #070814;
-    --bg-navy: #0f1021;
-    --neon-purple: #8A2BE2;
-    --electric-pink: #FF3CAC;
-    --indigo-blue: #2B2DFF;
+    --bg-dark: #000000;
+    --bg-navy: #0a0a0c;
+    --neon-purple: #a78bfa;
+    --electric-pink: #f472b6;
+    --indigo-blue: #60a5fa;
     --text-main: #ffffff;
-    --text-muted: #a0a5c0;
-    --glass-bg: rgba(20, 21, 38, 0.6);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --glass-glow: 0 8px 32px 0 rgba(138, 43, 226, 0.15);
+    --text-muted: #9ca3af;
+    --glass-bg: rgba(255, 255, 255, 0.02);
+    --glass-border: rgba(255, 255, 255, 0.06);
+    --glass-glow: 0 20px 40px -10px rgba(0, 0, 0, 0.8);
     
-    --transition: all 0.3s ease;
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -22,7 +22,7 @@
 }
 
 body {
-    background: radial-gradient(circle at top left, var(--bg-navy), var(--bg-dark) 80%);
+    background: radial-gradient(circle at top left, #121216, var(--bg-dark) 60%);
     color: var(--text-main);
     min-height: 100vh;
     display: flex;
@@ -44,10 +44,10 @@ body {
 /* Glassmorphism Panel Utility */
 .glass-panel {
     background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
+    border-radius: 24px;
     box-shadow: var(--glass-glow);
 }
 
@@ -77,58 +77,66 @@ h1, h2, h3, h4 {
 
 /* Buttons */
 .btn {
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 12px 24px;
+    border-radius: 100px;
     font-weight: 500;
     cursor: pointer;
     transition: var(--transition);
     border: none;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    letter-spacing: 0.3px;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--neon-purple), var(--electric-pink));
-    color: white;
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(200,200,200,0.9));
+    color: #000;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
 }
 .btn-primary:hover, .btn-primary.glow {
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
-    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px) scale(1.02);
+    background: #ffffff;
 }
 
 .btn-secondary {
     background: var(--glass-bg);
     color: white;
     border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
 }
 .btn-secondary:hover {
-    background: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.15);
+    transform: translateY(-2px);
 }
 
 .btn-outline {
     background: transparent;
-    border: 1px solid var(--neon-purple);
-    color: var(--neon-purple);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
 }
 .btn-outline:hover {
-    background: rgba(138, 43, 226, 0.1);
-    box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
 }
 
 /* SIDEBAR */
 .sidebar {
     width: 260px;
-    height: 100vh;
-    background: rgba(10, 11, 26, 0.8);
-    backdrop-filter: blur(20px);
-    border-right: 1px solid var(--glass-border);
+    height: calc(100vh - 32px);
+    margin: 16px;
+    border-radius: 24px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-border);
     position: fixed;
     display: flex;
     flex-direction: column;
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 1.5rem;
     z-index: 100;
 }
 
@@ -171,14 +179,12 @@ h1, h2, h3, h4 {
     background: rgba(255, 255, 255, 0.05);
 }
 .nav-links li.active {
-    background: linear-gradient(90deg, rgba(138,43,226,0.2), transparent);
+    background: rgba(255, 255, 255, 0.06);
     color: white;
-    border-left: 3px solid var(--neon-purple);
-    text-shadow: 0 0 8px rgba(255,255,255,0.5);
+    border-radius: 12px;
 }
 .nav-links li.active i {
-    color: var(--neon-purple);
-    text-shadow: 0 0 15px var(--neon-purple);
+    color: white;
 }
 
 .sidebar-bottom {
@@ -222,9 +228,9 @@ h1, h2, h3, h4 {
 
 /* MAIN CONTENT */
 .main-content {
-    margin-left: 260px;
+    margin-left: 280px;
     flex: 1;
-    padding: 2.5rem 3rem;
+    padding: 2rem 3rem;
     position: relative;
     height: 100vh;
     overflow-y: auto;
@@ -253,12 +259,11 @@ header {
 /* DASHBOARD PAGE */
 .hero-banner {
     width: 100%;
-    height: 280px;
-    border-radius: 20px;
+    height: 320px;
+    border-radius: 32px;
     overflow: hidden;
     position: relative;
-    margin-bottom: 2.5rem;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    margin-bottom: 3rem;
     border: 1px solid var(--glass-border);
 }
 .hero-banner img {
@@ -269,7 +274,7 @@ header {
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(15,16,33,0.8), transparent);
+    background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
 }
 
 .stats-grid {
@@ -281,18 +286,19 @@ header {
 .stat-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     padding: 1.5rem;
-    border-radius: 16px;
+    border-radius: 24px;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
     transition: var(--transition);
 }
 .stat-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(138,43,226,0.4);
-    box-shadow: 0 10px 30px rgba(138,43,226,0.1);
+    border-color: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.04);
 }
 .stat-card i {
     font-size: 2rem;
@@ -330,8 +336,8 @@ header {
 .event-mini-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 1rem;
+    border-radius: 24px;
+    padding: 1.2rem;
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -339,13 +345,14 @@ header {
     transition: var(--transition);
 }
 .event-mini-card:hover {
-    background: rgba(255,255,255,0.05);
-    border-color: rgba(138,43,226,0.3);
+    background: rgba(255,255,255,0.03);
+    border-color: rgba(255,255,255,0.1);
+    transform: translateX(4px);
 }
 .event-mini-card img {
     width: 80px;
     height: 80px;
-    border-radius: 8px;
+    border-radius: 16px;
     object-fit: cover;
 }
 .event-details {
@@ -372,7 +379,7 @@ header {
 .next-ticket-card, .referral-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
+    border-radius: 24px;
     padding: 1.5rem;
 }
 .next-ticket-card h3, .referral-card h3 {
@@ -406,12 +413,12 @@ header {
 
 .referral-card {
     text-align: center;
-    background: linear-gradient(135deg, rgba(138,43,226,0.1) 0%, rgba(20,21,38,0.8) 100%);
-    border: 1px solid rgba(138,43,226,0.2);
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(20,21,38,0.3) 100%);
+    border: 1px solid var(--glass-border);
 }
 .referral-card i {
     font-size: 3rem;
-    color: var(--electric-pink);
+    color: var(--neon-purple);
     margin-bottom: 1rem;
 }
 .referral-card p {
@@ -482,7 +489,7 @@ header {
 .event-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
+    border-radius: 24px;
     overflow: hidden;
     transition: var(--transition);
     display: flex;
@@ -490,8 +497,8 @@ header {
 }
 .event-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(138,43,226,0.5);
-    box-shadow: 0 10px 30px rgba(138,43,226,0.15);
+    border-color: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.03);
 }
 .card-img {
     height: 180px;
@@ -527,7 +534,7 @@ header {
 }
 .card-content .desc {
     font-size: 0.85rem;
-    color: #c0c5e0;
+    color: var(--text-muted);
     margin: 10px 0 15px;
     flex: 1;
 }
@@ -593,22 +600,23 @@ header {
 .ticket-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
+    border-radius: 24px;
     display: flex;
-    padding: 1rem;
+    padding: 1.2rem;
     gap: 1.5rem;
     align-items: center;
     transition: var(--transition);
 }
 .ticket-card:hover {
-    border-color: rgba(43,45,255,0.4);
-    box-shadow: 0 5px 20px rgba(43,45,255,0.1);
+    border-color: rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.03);
+    transform: translateY(-3px);
 }
 .ticket-card img {
     width: 100px;
     height: 140px;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 16px;
 }
 .ticket-info {
     flex: 1;
