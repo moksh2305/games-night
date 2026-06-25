@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import BookEventForm from '@/components/BookEventForm';
 import RealtimeCounter from '@/components/RealtimeCounter';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 5;
 
 export default async function BookEventPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
