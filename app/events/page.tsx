@@ -1,5 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
+import PostHogPageTracker from '@/components/PostHogPageTracker';
+import CategoryChips from '@/components/CategoryChips';
+import BookNowButton from '@/components/BookNowButton';
 
 export const revalidate = 5;
 
@@ -10,6 +13,7 @@ export default async function EventsPage() {
 
   return (
     <section id="events" className="page active">
+      <PostHogPageTracker eventName="events_page_opened" />
       <header>
         <div>
           <h1>Events</h1>
@@ -25,13 +29,7 @@ export default async function EventsPage() {
         <button className="btn btn-icon"><i className="bx bx-filter-alt"></i> Filter</button>
       </div>
 
-      <div className="category-chips">
-        <button className="chip active">All Events</button>
-        <button className="chip">Board Games</button>
-        <button className="chip">Poker</button>
-        <button className="chip">Retro Games</button>
-        <button className="chip">Trivia</button>
-      </div>
+      <CategoryChips />
 
       <div className="events-grid">
         {events.map((event) => {
@@ -49,11 +47,7 @@ export default async function EventsPage() {
               <p className="desc">{event.description}</p>
               <div className="card-footer">
                 <div className="price">From <span>{event.price === 0 ? 'FREE' : '$' + event.price}</span></div>
-                <Link href={`/events/${event.id}/book`}>
-                  <button className={`btn ${isSoldOut ? 'btn-secondary' : 'btn-primary'}`}>
-                    {isSoldOut ? 'Sold Out' : 'Book Now'}
-                  </button>
-                </Link>
+                <BookNowButton eventId={event.id} isSoldOut={isSoldOut} className={`btn ${isSoldOut ? 'btn-secondary' : 'btn-primary'}`} />
               </div>
             </div>
           </div>

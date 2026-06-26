@@ -2,6 +2,8 @@ import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 import AnimatedPillars from '@/components/AnimatedPillars';
 import TestimonialBoard from '@/components/TestimonialBoard';
+import PostHogPageTracker from '@/components/PostHogPageTracker';
+import BookNowButton from '@/components/BookNowButton';
 
 export const revalidate = 5;
 
@@ -18,6 +20,7 @@ export default async function DashboardPage() {
 
   return (
     <section id="dashboard" className="page active">
+      <PostHogPageTracker eventName="homepage_visited" />
       <div style={{ background: 'linear-gradient(90deg, rgba(167,139,250,0.1), rgba(244,114,182,0.05))', padding: '12px 24px', borderRadius: '16px', border: '1px solid rgba(167,139,250,0.2)', marginBottom: '2.5rem', display: 'flex', alignItems: 'center', gap: '12px' }}>
         <i className='bx bxs-check-shield' style={{ color: 'var(--neon-purple)', fontSize: '1.4rem' }}></i>
         <span style={{ fontSize: '0.95rem', letterSpacing: '0.5px', color: 'var(--text-muted)' }}>Hosted & Moderated by <strong style={{ color: 'white', fontWeight: 600 }}>Arham Yuva Seva Group (AYSG)</strong></span>
@@ -100,11 +103,7 @@ export default async function DashboardPage() {
                 <p><i className="bx bx-map"></i> {event.venue}</p>
               </div>
               <div className="event-price">{event.price === 0 ? 'FREE' : '$' + event.price}</div>
-              <Link href={`/events/${event.id}/book`}>
-                <button className={`btn ${isSoldOut ? 'btn-secondary' : 'btn-outline glow'}`}>
-                  {isSoldOut ? 'Sold Out' : 'Book Now'}
-                </button>
-              </Link>
+              <BookNowButton eventId={event.id} isSoldOut={isSoldOut} />
             </div>
             );
           })}

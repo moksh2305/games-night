@@ -81,7 +81,7 @@ export async function bookTicket(prevState: any, formData: FormData) {
 
   revalidatePath('/mytickets');
   revalidatePath(`/events/${eventId}/book`);
-  redirect('/mytickets');
+  return { success: true };
 }
 
 export async function addTestimonial(formData: FormData) {

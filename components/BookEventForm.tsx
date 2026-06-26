@@ -1,10 +1,41 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useEffect, useRef } from 'react';
 import { bookTicket } from '@/app/actions';
+import { usePostHog } from 'posthog-js/react';
+import { useRouter } from 'next/navigation';
 
 export default function BookEventForm({ eventId, price, isSoldOut }: { eventId: string, price: number, isSoldOut: boolean }) {
   const [state, formAction, isPending] = useActionState(bookTicket, null);
+  const posthog = usePostHog();
+  const router = useRouter();
+  
+  const started = useRef(false);
+  const completed = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      // If component unmounts and they started but didn't complete, they abandoned.
+      if (!completed.current && started.current && posthog) {
+        posthog.capture('booking_abandoned', { eventId, price });
+      }
+    };
+  }, [posthog, eventId, price]);
+
+  useEffect(() => {
+    if (state?.success) {
+      completed.current = true;
+      if (posthog) posthog.capture('booking_completed', { eventId, price });
+      router.push('/mytickets');
+    }
+  }, [state, posthog, router, eventId, price]);
+
+  const handleStart = () => {
+    if (!started.current) {
+      started.current = true;
+      if (posthog) posthog.capture('booking_started', { eventId, price });
+    }
+  };
 
   if (isSoldOut) {
     return (
@@ -27,18 +58,18 @@ export default function BookEventForm({ eventId, price, isSoldOut }: { eventId: 
       
       <div>
         <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Full Name</label>
-        <input type="text" name="name" required placeholder="John Doe" disabled={isPending} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', opacity: isPending ? 0.5 : 1 }} />
+        <input type="text" name="name" required placeholder="John Doe" disabled={isPending} onFocus={handleStart} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', opacity: isPending ? 0.5 : 1 }} />
       </div>
       
       
       <div>
         <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Age</label>
-        <input type="number" name="age" required min="18" placeholder="18" disabled={isPending} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', opacity: isPending ? 0.5 : 1 }} />
+        <input type="number" name="age" required min="18" placeholder="18" disabled={isPending} onFocus={handleStart} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', opacity: isPending ? 0.5 : 1 }} />
       </div>
       
       <div>
         <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Address</label>
-        <textarea name="address" required placeholder="123 Neon Street..." disabled={isPending} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', minHeight: '80px', opacity: isPending ? 0.5 : 1 }}></textarea>
+        <textarea name="address" required placeholder="123 Neon Street..." disabled={isPending} onFocus={handleStart} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', minHeight: '80px', opacity: isPending ? 0.5 : 1 }}></textarea>
       </div>
       
       <button type="submit" disabled={isPending} className="btn btn-primary glow" style={{ marginTop: '1rem', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', opacity: isPending ? 0.7 : 1 }}>

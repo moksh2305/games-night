@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 
 import BookEventForm from '@/components/BookEventForm';
 import RealtimeCounter from '@/components/RealtimeCounter';
+import PostHogPageTracker from '@/components/PostHogPageTracker';
 
 export const revalidate = 5;
 
@@ -28,6 +29,10 @@ export default async function BookEventPage(props: { params: Promise<{ id: strin
 
   return (
     <section className="page active" style={{ padding: '2rem' }}>
+      <PostHogPageTracker 
+        eventName="booking_page_opened" 
+        properties={{ eventId: event.id, eventName: event.title }} 
+      />
       <header>
         <div>
           <h1>Book Ticket</h1>
