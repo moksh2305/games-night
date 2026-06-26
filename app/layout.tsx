@@ -14,7 +14,6 @@ const poppins = Poppins({
 
 export const metadata = {
   title: 'Games Night',
-  description: 'Luxury cyber-neon web dashboard UI for Games Night',
 };
 
 export default async function RootLayout({
