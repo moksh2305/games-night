@@ -45,6 +45,14 @@ export async function bookTicket(prevState: any, formData: FormData) {
       },
     });
 
+    await prisma.activity.create({
+      data: {
+        userId: session.user.id,
+        title: `Booked ticket for ${event.title}`,
+        type: 'Booking',
+      }
+    });
+
     if (process.env.RESEND_API_KEY) {
       await resend.emails.send({
         from: 'AYSG Games Night <onboarding@resend.dev>',
@@ -97,4 +105,48 @@ export async function addTestimonial(formData: FormData) {
 
   revalidatePath('/');
   return { success: true };
+}
+
+export async function updateProfile(prevState: any, formData: FormData) {
+  const session = await auth();
+  if (!session?.user?.id) return { error: 'Not authenticated' };
+
+  try {
+    const phone = formData.get('phone') as string;
+    const occupation = formData.get('occupation') as string;
+    const college = formData.get('college') as string;
+    const bio = formData.get('bio') as string;
+    const favoriteGames = formData.getAll('favoriteGames').join(',');
+    const preferredEventType = formData.get('preferredEventType') as string;
+    
+    // Convert multiple checkboxes for notifications into a comma-separated string
+    const notificationPrefs = formData.getAll('notificationPrefs').join(',');
+
+    await prisma.user.update({
+      where: { id: session.user.id },
+      data: {
+        phone,
+        occupation,
+        college,
+        bio,
+        favoriteGames,
+        preferredEventType,
+        notificationPrefs,
+      },
+    });
+
+    await prisma.activity.create({
+      data: {
+        userId: session.user.id,
+        title: 'Updated profile preferences',
+        type: 'Profile',
+      }
+    });
+
+    revalidatePath('/profile');
+    return { success: true };
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    return { error: 'Failed to update profile' };
+  }
 }

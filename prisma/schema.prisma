@@ -53,9 +53,23 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
+  
+  chapter       String?
+  role          String          @default("Active Member")
+  
+  phone         String?
+  occupation    String?
+  college       String?
+  bio           String?
+  
+  favoriteGames      String?
+  preferredEventType String?
+  notificationPrefs  String?
+
   accounts      Account[]
   sessions      Session[]
   bookings      Booking[]
+  activities    Activity[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -98,4 +112,14 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
+}
+
+model Activity {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  type      String   @default("General")
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
