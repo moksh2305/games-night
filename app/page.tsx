@@ -4,6 +4,7 @@ import AnimatedPillars from '@/components/AnimatedPillars';
 import TestimonialBoard from '@/components/TestimonialBoard';
 import PostHogPageTracker from '@/components/PostHogPageTracker';
 import BookNowButton from '@/components/BookNowButton';
+import { auth } from '@/auth';
 
 export const revalidate = 5;
 
@@ -18,6 +19,9 @@ export default async function DashboardPage() {
     take: 10
   });
 
+  const session = await auth();
+  const firstName = session?.user?.name ? session.user.name.split(' ')[0] : 'Gamer';
+
   return (
     <section id="dashboard" className="page active">
       <PostHogPageTracker eventName="homepage_visited" />
@@ -28,7 +32,7 @@ export default async function DashboardPage() {
 
       <header>
         <div>
-          <h1>Hey Alex! Ready to play?</h1>
+          <h1>Hey {firstName}! Ready to play?</h1>
           <p className="subtitle">Epic games. Great people. Unforgettable memories.</p>
         </div>
         <div className="header-actions" style={{ display: 'flex', gap: '1rem' }}>
