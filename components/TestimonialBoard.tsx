@@ -1,15 +1,31 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { addTestimonial } from '@/app/actions';
 
 export default function TestimonialBoard({ initialTestimonials }: { initialTestimonials: any[] }) {
   const [content, setContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  // We rely on server action revalidation to fetch new testimonials,
-  // but we can also optimistically update the UI or just let Next.js refresh the prop.
+  useEffect(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    if (!isMobile || initialTestimonials.length <= 1) return;
+
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        currentIndex = (currentIndex + 1) % initialTestimonials.length;
+        const cardWidth = scrollRef.current.children[0]?.clientWidth || 0;
+        scrollRef.current.scrollTo({
+          left: currentIndex * (cardWidth + 16), // 16px gap roughly
+          behavior: 'smooth'
+        });
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [initialTestimonials.length]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -33,7 +49,7 @@ export default function TestimonialBoard({ initialTestimonials }: { initialTesti
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
+      <div ref={scrollRef} className="testimonial-container">
         <AnimatePresence>
           {initialTestimonials.map((t, i) => (
             <motion.div 
@@ -41,8 +57,7 @@ export default function TestimonialBoard({ initialTestimonials }: { initialTesti
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: i * 0.1, type: 'spring' }}
-              className="glass-panel" 
-              style={{ padding: '2rem', borderRadius: '24px', borderLeft: '4px solid var(--neon-purple)', position: 'relative' }}
+              className="testimonial-card" 
             >
               <i className='bx bxs-quote-alt-left' style={{ fontSize: '2rem', color: 'var(--neon-purple)', marginBottom: '1rem', opacity: 0.5 }}></i>
               <p style={{ fontStyle: 'italic', marginBottom: '1.5rem', color: 'var(--text-main)', fontSize: '1.05rem', lineHeight: '1.6' }}>"{t.content}"</p>

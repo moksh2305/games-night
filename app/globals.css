@@ -64,6 +64,24 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0.5rem;
 }
 
+.testimonial-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+.testimonial-card {
+    padding: 2rem;
+    border-radius: 24px;
+    border-left: 4px solid var(--neon-purple);
+    position: relative;
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    border-top: 1px solid var(--glass-border);
+    border-right: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+}
+
 .badge {
     padding: 4px 10px;
     border-radius: 20px;
@@ -996,5 +1014,19 @@ header {
         bottom: -14px;
         border-top: none;
         border-left: 1px solid var(--glass-border);
+    }
+    
+    .testimonial-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        padding-bottom: 1rem;
+        gap: 1rem;
+    }
+    .testimonial-card {
+        min-width: 85vw;
+        scroll-snap-align: center;
+        flex-shrink: 0;
     }
 }
