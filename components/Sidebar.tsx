@@ -14,6 +14,10 @@ export default function Sidebar({ session }: { session: any }) {
     { name: 'Profile', path: '/profile', icon: 'bx-user' },
   ];
 
+  if (session?.user?.email === 'moksh230305@gmail.com') {
+    navItems.push({ name: 'Admin Hub', path: '/admin', icon: 'bx-shield-quarter' });
+  }
+
   return (
     <nav className="sidebar">
       <div className="logo-container">

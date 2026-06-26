@@ -2,6 +2,7 @@ import { Poppins } from 'next/font/google';
 import './globals.css';
 import Sidebar from '@/components/Sidebar';
 import { auth } from '@/auth';
+import { CSPostHogProvider } from './providers';
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700'],
@@ -26,10 +27,12 @@ export default async function RootLayout({
         <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <Sidebar session={await auth()} />
-        <main className="main-content">
-          {children}
-        </main>
+        <CSPostHogProvider>
+          <Sidebar session={await auth()} />
+          <main className="main-content">
+            {children}
+          </main>
+        </CSPostHogProvider>
       </body>
     </html>
   );
