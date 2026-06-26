@@ -46,6 +46,7 @@ export default async function ProfilePage() {
           
           {/* AYSG Digital Identity Card */}
           <div className="glass-panel" style={{ 
+            padding: '2rem',
             background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.05))',
             border: '1px solid rgba(168, 85, 247, 0.3)',
             boxShadow: '0 0 20px rgba(139, 92, 246, 0.15)',
@@ -103,7 +104,7 @@ export default async function ProfilePage() {
         {/* RIGHT PANEL */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
-          <div className="glass-panel">
+          <div className="glass-panel" style={{ padding: '2rem' }}>
             <h3 style={{ marginBottom: '1rem' }}>AYSG Journey</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1rem' }}>
               <div style={{ background: 'var(--bg-dark)', padding: '1.5rem', borderRadius: '0.5rem', textAlign: 'center', border: '1px solid var(--glass-border)' }}>
@@ -117,7 +118,7 @@ export default async function ProfilePage() {
             </div>
           </div>
           
-          <div className="glass-panel">
+          <div className="glass-panel" style={{ padding: '2rem' }}>
             <h3 style={{ marginBottom: '1.5rem' }}>Preferences</h3>
             
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1.5rem' }}>
@@ -148,7 +149,7 @@ export default async function ProfilePage() {
             </div>
           </div>
 
-          <div className="glass-panel">
+          <div className="glass-panel" style={{ padding: '2rem' }}>
             <h3 style={{ marginBottom: '1.5rem' }}>Recent Activity</h3>
             
             {user.activities.length > 0 ? (
