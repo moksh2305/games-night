@@ -129,7 +129,7 @@ export default async function AdminDashboard() {
                     </td>
                     <td>
                       {booking.email}
-                      {booking.user?.phone && <small style={{ display: 'block' }}>{booking.user.phone}</small>}
+                      {(booking.phone || booking.user?.phone) && <small style={{ display: 'block', color: 'var(--text-muted)' }}>{booking.phone || booking.user?.phone}</small>}
                     </td>
                     <td>
                       <strong>{booking.event.title}</strong>

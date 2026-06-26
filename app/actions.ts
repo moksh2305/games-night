@@ -18,6 +18,7 @@ export async function bookTicket(prevState: any, formData: FormData) {
   const name = formData.get('name') as string;
   const email = session.user.email;
   const age = parseInt(formData.get('age') as string);
+  const phone = formData.get('phone') as string;
   const address = formData.get('address') as string;
   
   try {
@@ -39,6 +40,7 @@ export async function bookTicket(prevState: any, formData: FormData) {
         name,
         email,
         age,
+        phone,
         address,
         paymentMethod: 'Free',
         status: 'Confirmed',

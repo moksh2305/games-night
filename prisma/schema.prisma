@@ -28,6 +28,7 @@ model Booking {
   email         String
   name          String
   age           Int
+  phone         String?
   address       String
   paymentMethod String
   status        String   @default("Confirmed")

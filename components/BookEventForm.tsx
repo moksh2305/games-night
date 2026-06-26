@@ -74,6 +74,15 @@ export default function BookEventForm({ eventId, price, isSoldOut }: { eventId: 
         <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Age</label>
         <input type="number" name="age" required min="18" placeholder="18" disabled={isPending} onFocus={handleStart} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', opacity: isPending ? 0.5 : 1 }} />
       </div>
+
+      <div>
+        <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Phone Number</label>
+        <input type="tel" name="phone" required pattern="[0-9]{10}" placeholder="9876543210" disabled={isPending} onFocus={handleStart} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', opacity: isPending ? 0.5 : 1 }} />
+        <small style={{ display: 'block', marginTop: '0.5rem', color: 'var(--text-muted)', fontSize: '0.8rem', lineHeight: '1.4' }}>
+          <i className="bx bx-shield-alt-2" style={{ color: 'var(--neon-purple)', marginRight: '4px' }}></i>
+          <strong>Privacy Guarantee:</strong> Your phone number is used only for booking confirmation. We respect your privacy and will never spam, share, or misuse your details.
+        </small>
+      </div>
       
       <div>
         <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Address</label>
