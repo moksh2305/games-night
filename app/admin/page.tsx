@@ -1,6 +1,7 @@
 import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
+import { getAnalyticsMetrics } from './posthog';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,6 +28,9 @@ export default async function AdminDashboard() {
   const totalBookings = bookings.length;
   const uniqueUsers = new Set(bookings.map(b => b.email)).size;
 
+  // Fetch PostHog Metrics
+  const analytics = await getAnalyticsMetrics();
+
   return (
     <section className="page active" style={{ padding: '2rem' }}>
       <header>
@@ -40,6 +44,20 @@ export default async function AdminDashboard() {
       </header>
 
       <div className="stats-grid">
+        <div className="stat-card glass-panel" style={{ background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0))' }}>
+          <i className='bx bx-globe' style={{ color: 'var(--neon-purple)' }}></i>
+          <div className="stat-info">
+            <p>Total Pageviews (7d)</p>
+            <h3>{analytics.totalPageviews}</h3>
+          </div>
+        </div>
+        <div className="stat-card glass-panel" style={{ background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(0,0,0,0))' }}>
+          <i className='bx bx-user-pin' style={{ color: 'var(--electric-pink)' }}></i>
+          <div className="stat-info">
+            <p>Unique Visitors (7d)</p>
+            <h3>{analytics.uniqueVisitors}</h3>
+          </div>
+        </div>
         <div className="stat-card glass-panel">
           <i className='bx bx-receipt'></i>
           <div className="stat-info">
@@ -53,6 +71,31 @@ export default async function AdminDashboard() {
             <p>Unique Attendees</p>
             <h3>{uniqueUsers}</h3>
           </div>
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2rem' }}>
+        <div className="glass-panel" style={{ padding: '2rem' }}>
+          <h3 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}><i className='bx bx-bar-chart-alt-2'></i> Top Pages</h3>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            {analytics.topPages.map((page: any, i: number) => (
+              <li key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.8rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <span style={{ color: 'var(--text-main)' }}>{page.path}</span>
+                <span style={{ color: 'var(--neon-purple)', fontWeight: 600 }}>{page.views} views</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="glass-panel" style={{ padding: '2rem' }}>
+          <h3 style={{ marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}><i className='bx bx-link-external'></i> Traffic Sources</h3>
+          <ul style={{ listStyle: 'none', padding: 0 }}>
+            {analytics.trafficSources.map((source: any, i: number) => (
+              <li key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.8rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                <span style={{ color: 'var(--text-main)', textTransform: 'capitalize' }}>{source.source.replace('$', '')}</span>
+                <span style={{ color: 'var(--electric-pink)', fontWeight: 600 }}>{source.count} visits</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 

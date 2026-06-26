@@ -3,6 +3,8 @@ import './globals.css';
 import Sidebar from '@/components/Sidebar';
 import { auth } from '@/auth';
 import { CSPostHogProvider } from './providers';
+import PostHogPageView from '@/components/PostHogPageView';
+import PostHogIdentifier from '@/components/PostHogIdentifier';
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700'],
@@ -20,6 +22,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
   return (
     <html lang="en" className={poppins.variable}>
       <head>
@@ -28,7 +31,9 @@ export default async function RootLayout({
       </head>
       <body>
         <CSPostHogProvider>
-          <Sidebar session={await auth()} />
+          <PostHogPageView />
+          <PostHogIdentifier user={session?.user || null} />
+          <Sidebar session={session} />
           <main className="main-content">
             {children}
           </main>

@@ -11,6 +11,7 @@ export default function BookEventForm({ eventId, price, isSoldOut }: { eventId: 
   const router = useRouter();
   
   const started = useRef(false);
+  const halfCompleted = useRef(false);
   const completed = useRef(false);
 
   useEffect(() => {
@@ -34,6 +35,13 @@ export default function BookEventForm({ eventId, price, isSoldOut }: { eventId: 
     if (!started.current) {
       started.current = true;
       if (posthog) posthog.capture('booking_started', { eventId, price });
+    }
+  };
+
+  const handleHalfComplete = () => {
+    if (!halfCompleted.current) {
+      halfCompleted.current = true;
+      if (posthog) posthog.capture('booking_form_half_completed', { eventId, price });
     }
   };
 
@@ -69,7 +77,7 @@ export default function BookEventForm({ eventId, price, isSoldOut }: { eventId: 
       
       <div>
         <label style={{ display: 'block', marginBottom: '0.5rem', color: 'var(--text-muted)' }}>Address</label>
-        <textarea name="address" required placeholder="123 Neon Street..." disabled={isPending} onFocus={handleStart} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', minHeight: '80px', opacity: isPending ? 0.5 : 1 }}></textarea>
+        <textarea name="address" required placeholder="123 Neon Street..." disabled={isPending} onFocus={(e) => { handleStart(); handleHalfComplete(); }} style={{ width: '100%', padding: '0.8rem', borderRadius: '0.5rem', background: '#0f1021', border: '1px solid #2a2b4a', color: 'white', minHeight: '80px', opacity: isPending ? 0.5 : 1 }}></textarea>
       </div>
       
       <button type="submit" disabled={isPending} className="btn btn-primary glow" style={{ marginTop: '1rem', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem', opacity: isPending ? 0.7 : 1 }}>
