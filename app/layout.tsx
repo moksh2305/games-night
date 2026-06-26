@@ -13,7 +13,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: 'Games Night - Premium Dashboard',
+  title: 'Games Night',
   description: 'Luxury cyber-neon web dashboard UI for Games Night',
 };
 
