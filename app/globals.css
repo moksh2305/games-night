@@ -416,6 +416,12 @@ header {
     font-size: 1.1rem;
 }
 
+.event-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
 .side-widgets {
     display: flex;
     flex-direction: column;
@@ -1055,5 +1061,22 @@ header {
         width: 100%;
         justify-content: center;
         padding: 1rem;
+    }
+    
+    .event-mini-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    .event-mini-card img {
+        width: 100%;
+        height: 160px;
+        border-radius: 12px;
+    }
+    .event-actions {
+        justify-content: space-between;
+        width: 100%;
+        border-top: 1px solid var(--glass-border);
+        padding-top: 1rem;
     }
 }

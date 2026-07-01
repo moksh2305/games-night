@@ -106,8 +106,10 @@ export default async function DashboardPage() {
                 <p><i className="bx bx-calendar"></i> {event.date}</p>
                 <p><i className="bx bx-map"></i> {event.venue}</p>
               </div>
-              <div className="event-price">{event.price === 0 ? 'FREE' : '$' + event.price}</div>
-              <BookNowButton eventId={event.id} isSoldOut={isSoldOut} />
+              <div className="event-actions">
+                <div className="event-price">{event.price === 0 ? 'FREE' : '$' + event.price}</div>
+                <BookNowButton eventId={event.id} isSoldOut={isSoldOut} />
+              </div>
             </div>
             );
           })}
