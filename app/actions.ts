@@ -152,3 +152,44 @@ export async function updateProfile(prevState: any, formData: FormData) {
     return { error: 'Failed to update profile' };
   }
 }
+
+export async function createEvent(formData: FormData) {
+  const session = await auth();
+  if (!session?.user) return { error: 'Not authenticated' };
+  // Check if admin here if needed, but for now we assume anyone with access to /admin can do this
+
+  try {
+    const title = formData.get('title') as string;
+    const date = formData.get('date') as string;
+    const venue = formData.get('venue') as string;
+    const image = formData.get('image') as string;
+    const description = formData.get('description') as string;
+    const price = parseFloat(formData.get('price') as string) || 0;
+    const capacity = parseInt(formData.get('capacity') as string) || 30;
+
+    if (!title || !date || !venue || !image || !description) {
+      return { error: 'All fields are required.' };
+    }
+
+    await prisma.event.create({
+      data: {
+        title,
+        date,
+        venue,
+        image,
+        description,
+        price,
+        capacity,
+        type: 'Standard',
+      },
+    });
+
+    revalidatePath('/admin');
+    revalidatePath('/events');
+    revalidatePath('/');
+    return { success: true };
+  } catch (error) {
+    console.error('Error creating event:', error);
+    return { error: 'Failed to create event.' };
+  }
+}

@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { redirect } from 'next/navigation';
 import { getAnalyticsMetrics } from './posthog';
+import CreateEventForm from '@/components/CreateEventForm';
 
 export const dynamic = 'force-dynamic';
 
@@ -42,6 +43,8 @@ export default async function AdminDashboard() {
           <p className="subtitle">Secure overview of all AYSG ticketing data.</p>
         </div>
       </header>
+
+      <CreateEventForm />
 
       <div className="stats-grid">
         <div className="stat-card glass-panel" style={{ background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0))' }}>
