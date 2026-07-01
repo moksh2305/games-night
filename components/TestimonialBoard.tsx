@@ -60,7 +60,7 @@ export default function TestimonialBoard({ initialTestimonials }: { initialTesti
               className="testimonial-card" 
             >
               <i className='bx bxs-quote-alt-left' style={{ fontSize: '2rem', color: 'var(--neon-purple)', marginBottom: '1rem', opacity: 0.5 }}></i>
-              <p style={{ fontStyle: 'italic', marginBottom: '1.5rem', color: 'var(--text-main)', fontSize: '1.05rem', lineHeight: '1.6' }}>"{t.content}"</p>
+              <p style={{ fontStyle: 'italic', marginBottom: '1.5rem', color: 'var(--text-main)', fontSize: '1.05rem', lineHeight: '1.6', wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>"{t.content}"</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(45deg, var(--neon-purple), var(--electric-pink))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
                   {t.name.charAt(0)}
@@ -77,16 +77,16 @@ export default function TestimonialBoard({ initialTestimonials }: { initialTesti
 
       <div className="glass-panel" style={{ padding: '2rem', borderRadius: '24px', background: 'rgba(255,255,255,0.02)' }}>
         <h3 style={{ marginBottom: '1rem' }}>Share Your Experience</h3>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '1rem' }}>
+        <form onSubmit={handleSubmit} className="testimonial-form">
           <input 
             type="text" 
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="I came for the games, stayed for the people..." 
-            style={{ flex: 1, padding: '1rem 1.5rem', borderRadius: '100px', background: 'rgba(0,0,0,0.4)', border: '1px solid var(--glass-border)', color: 'white' }}
+            placeholder="I came for the games..." 
+            className="testimonial-input"
             disabled={isSubmitting}
           />
-          <button type="submit" className="btn btn-primary glow" style={{ borderRadius: '100px', padding: '0 2rem' }} disabled={isSubmitting}>
+          <button type="submit" className="btn btn-primary glow testimonial-btn" disabled={isSubmitting}>
             {isSubmitting ? 'Posting...' : 'Post'}
           </button>
         </form>

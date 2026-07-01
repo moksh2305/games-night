@@ -82,6 +82,23 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 1px solid var(--glass-border);
 }
 
+.testimonial-form {
+    display: flex;
+    gap: 1rem;
+}
+.testimonial-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border-radius: 100px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--glass-border);
+    color: white;
+}
+.testimonial-btn {
+    border-radius: 100px;
+    padding: 0 2rem;
+}
+
 .badge {
     padding: 4px 10px;
     border-radius: 20px;
@@ -1025,8 +1042,18 @@ header {
         gap: 1rem;
     }
     .testimonial-card {
-        min-width: 85vw;
+        min-width: 80vw;
+        max-width: 80vw;
         scroll-snap-align: center;
         flex-shrink: 0;
+        padding: 1.5rem;
+    }
+    .testimonial-form {
+        flex-direction: column;
+    }
+    .testimonial-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 1rem;
     }
 }
